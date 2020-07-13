@@ -4,7 +4,6 @@ import './List.css';
 function List(){
     const [newItem, setNewItem] = useState("");
     const [list, setList] = useState([]);
-    const [dateTime, setDateTime] = useState(new Date());
     
     useEffect(() => {
         const retrievedList = window.localStorage.getItem("list");
@@ -22,20 +21,18 @@ function List(){
       function addItem() {
         // object for retrieving date
         let currentDate = new Date();
-
-        setDateTime(("0" + (currentDate.getMonth() + 1)).slice(-2) + "/"
+        let dateTime = ("0" + (currentDate.getMonth() + 1)).slice(-2) + "/"
           + ("0" + currentDate.getDate()).slice(-2) + "/"
           + currentDate.getFullYear() + " @ "
           + ("0" + currentDate.getHours()).slice(-2) + ":"
           + ("0" + currentDate.getMinutes()).slice(-2) + ":"
-          + ("0" + currentDate.getSeconds()).slice(-2));
+          + ("0" + currentDate.getSeconds()).slice(-2);
     
         // create a new item with unique id
         const newListItem = {
           id: Date.now()/*1 + Math.random()*/,
           value: newItem.slice(),
           date: "Task created on: " + dateTime
-        
         };
         
         // copy current list of items
@@ -62,50 +59,46 @@ function List(){
         setList(updatedList);
         };
       
-
-
       return(
         <div className="App">
-        <h1 className="app-header">To-Do List</h1>
-        <div className="container">
-          <form className="list-form" onSubmit={() => addItem()}>
-            <input
-              className="input-box"
-              id="inputBox"
-              type="text"
-              placeholder="Type task here"
-              value={newItem}
-              onChange={e => updateInput(e.target.value)}
-            />
-            <button
-              className="add-btn btn-floating"
-              onClick={() => addItem()}
-              disabled={!newItem.length}
-            >
-              <i className="material-icons"> + </i>
-            </button>
-            <br />
-            <ul className="list-wrapper">
-              {list.map(item => {
-                return (
-                  <li className="item-list" key={item.id}>
-                    <button className="delete-btn btn-floating"
-                      onClick={() => deleteItem(item.id)}
-                    >
-                      <i className="material-icons">X</i>
-                    </button>
-                    {item.value}
-                    <br />
-                    <div className="item-date">
-                      {item.date}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </form>
+            <h1 className="app-header">To-Do List</h1>
+                <div className="container">
+                    <form className="list-form" onSubmit={() => addItem()}>
+                        <input
+                            className="input-box"
+                            id="inputBox"
+                            type="text"
+                            placeholder="Type task here"
+                            value={newItem}
+                            onChange={e => updateInput(e.target.value)}
+                        />
+                        <button
+                            className="add-btn btn-floating"
+                            onClick={() => addItem()}
+                            disabled={!newItem.length}
+                        >
+                            <i className="material-icons"> + </i>
+                        </button>
+                        <br />
+                        <ul className="list-wrapper">
+                            {list.map(item => {
+                                return (
+                                <li className="item-list" key={item.id}>
+                                    <button className="delete-btn btn-floating" onClick={() => deleteItem(item.id)}>
+                                        <i className="material-icons">X</i>
+                                    </button>
+                                    {item.value}
+                                    <br />
+                                    <div className="item-date">
+                                        {item.date}
+                                    </div>
+                                </li>
+                                );
+                            })}
+                        </ul>
+                    </form>
+                </div>
         </div>
-      </div>
       )
     }
 
