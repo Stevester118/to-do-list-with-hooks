@@ -20,8 +20,8 @@ function List(){
       // adds task to task list
       function addItem() {
         // object for retrieving date
-        let currentDate = new Date();
-        let dateTime = ("0" + (currentDate.getMonth() + 1)).slice(-2) + "/"
+        const currentDate = new Date();
+        const dateTime = ("0" + (currentDate.getMonth() + 1)).slice(-2) + "/"
           + ("0" + currentDate.getDate()).slice(-2) + "/"
           + currentDate.getFullYear() + " @ "
           + ("0" + currentDate.getHours()).slice(-2) + ":"
