@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {GlobalContext} from './Store';
 import './List.css';
 
 function List(){
     const [newItem, setNewItem] = useState("");
     const [list, setList] = useState([]);
+    const [, setGlobal] = useContext(GlobalContext)
     
     useEffect(() => {
         const retrievedList = window.localStorage.getItem("list");
@@ -97,6 +99,7 @@ function List(){
                             })}
                         </ul>
                     </form>
+                    <button onClick={() => setGlobal('Global State has changed')}>Change Global State</button>
                 </div>
         </div>
       )
